@@ -1,8 +1,7 @@
 package dao
 
-import "gorm.io/gorm"
-
 type Type struct {
-	gorm.Model
+	BaseModel
+	ID   int    `gorm:"column:id; primary_key; not null" json:"id"`
 	Type string `gorm:"colum:type; not null" json:"type"`
 }
