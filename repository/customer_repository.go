@@ -32,7 +32,7 @@ func CustomerRepositoryInit(db *gorm.DB) *CustomerRepositoryImpl {
 func (customerRepo CustomerRepositoryImpl) FindAllCustomer() ([]dao.Customer, error) {
 	var customers []dao.Customer
 
-	var err = customerRepo.db.Preload("type").Find(&customers).Error
+	var err = customerRepo.db.Preload("Type").Find(&customers).Error
 	if err != nil {
 		log.Error("Error finding all customers. Error: ", err)
 		return nil, err

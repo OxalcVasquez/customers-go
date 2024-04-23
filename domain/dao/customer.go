@@ -8,6 +8,6 @@ type Customer struct {
 	Email    string `gorm:"column:email; not null" json:"email"`
 	Phone    string `gorm:"column:phone" json:"phone"`
 	Status   int    `gorm:"colum:status" json:"status"`
-	TypeId   int    `gorm:"colum:type_id; not null" json:"type_id"`
+	TypeID   int    `gorm:"colum:type_id; not null" json:"type_id"`
 	Type     Type   `gorm:"foreignKey:TypeID; references:ID" json:"type"`
 }
