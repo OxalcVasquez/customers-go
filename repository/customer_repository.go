@@ -65,6 +65,21 @@ func (customerRepo CustomerRepositoryImpl) Save(customer *dao.Customer) (dao.Cus
 	return *customer, nil
 }
 
+func (customerRepo CustomerRepositoryImpl) Update(customer *dao.Customer) (dao.Customer, error) {
+	err := customerRepo.db.Preload("Type").First(&customer).Error
+
+	if err != nil {
+		log.Error("Error finding customer to edit. Error: ", err)
+		return dao.Customer{}, err
+	}
+
+	if err := customerRepo.db.Updates(customer).Error; err != nil {
+		log.Error("Error updating customer. Error: ", err)
+		return dao.Customer{}, err
+	}
+	return *customer, nil
+}
+
 func (customerRepo CustomerRepositoryImpl) DeleteCustomerById(id int) error {
 	err := customerRepo.db.Delete(&dao.Customer{}, id).Error
 	if err != nil {
