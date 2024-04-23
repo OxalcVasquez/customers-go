@@ -12,7 +12,7 @@ type CustomerRepository interface {
 	FindAllCustomer() ([]dao.Customer, error)
 	FindCustomerById(id int) (dao.Customer, error)
 	Save(customer *dao.Customer) (dao.Customer, error)
-	Update(id int, customer *dao.Customer) (dao.Customer, error)
+	Update(customer *dao.Customer) (dao.Customer, error)
 	Delete(id int) error
 }
 
@@ -65,15 +65,16 @@ func (customerRepo CustomerRepositoryImpl) Save(customer *dao.Customer) (dao.Cus
 	return *customer, nil
 }
 
-func (customerRepo CustomerRepositoryImpl) Update(id int, customer *dao.Customer) (dao.Customer, error) {
-	err := customerRepo.db.Preload("Type").First(&customer).Error
+func (customerRepo CustomerRepositoryImpl) Update(customer *dao.Customer) (dao.Customer, error) {
+	existingCustomer := dao.Customer{}
 
+	err := customerRepo.db.First(&existingCustomer, customer.ID).Error
 	if err != nil {
 		log.Error("Error finding customer to edit. Error: ", err)
 		return dao.Customer{}, err
 	}
 
-	if err := customerRepo.db.Updates(customer).Error; err != nil {
+	if err := customerRepo.db.Model(&existingCustomer).Updates(*customer).Error; err != nil {
 		log.Error("Error updating customer. Error: ", err)
 		return dao.Customer{}, err
 	}

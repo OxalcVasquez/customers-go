@@ -18,7 +18,7 @@ func Init(init *config.Initialization) *gin.Engine {
 		customer.GET("", init.CustomerController.GetAllCustomer)
 		customer.POST("", init.CustomerController.CreateCustomer)
 		customer.GET("/:customerID", init.CustomerController.GetCustomerById)
-		customer.PUT("/:customerID", init.CustomerController.UpdateCustomer)
+		customer.PUT("", init.CustomerController.UpdateCustomer)
 		customer.DELETE("/:customerID", init.CustomerController.DeleteCustomer)
 	}
 

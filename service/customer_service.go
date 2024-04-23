@@ -100,7 +100,7 @@ func (customerService CustomerServiceImpl) UpdateCustomer(c *gin.Context) {
 		pkg.PanicException(constant.UknownError)
 	}
 
-	data.ID = customerID
+	data.ID = request.ID
 	data.Name = request.Name
 	data.LastName = request.LastName
 	data.Email = request.Email
@@ -108,7 +108,7 @@ func (customerService CustomerServiceImpl) UpdateCustomer(c *gin.Context) {
 	data.Name = request.Name
 	data.Status = request.Status
 	data.Type.ID = request.TypeID
-	customerService.repo.Update(customerID, &data)
+	customerService.repo.Update(&data)
 
 	if err != nil {
 		log.Error("Error updating customer. Error", err)
