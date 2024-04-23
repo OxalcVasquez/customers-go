@@ -1,0 +1,199 @@
+basePath: /api/
+definitions:
+  dto.ApiResponse:
+    properties:
+      data: {}
+      response_key:
+        type: string
+      response_message:
+        type: string
+    type: object
+  dto.CreateCustomerRequest:
+    properties:
+      email:
+        type: string
+      last_name:
+        maxLength: 200
+        minLength: 1
+        type: string
+      name:
+        maxLength: 200
+        minLength: 1
+        type: string
+      phone:
+        type: string
+      status:
+        type: integer
+      type_id:
+        type: integer
+    required:
+    - last_name
+    - name
+    type: object
+  dto.UpdateCustomerRequest:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      last_name:
+        maxLength: 200
+        minLength: 1
+        type: string
+      name:
+        maxLength: 200
+        minLength: 1
+        type: string
+      phone:
+        type: string
+      status:
+        type: integer
+      type_id:
+        type: integer
+    required:
+    - id
+    - last_name
+    - name
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: Api RestFul for manage customers
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Customers Compartamos API
+  version: "1.0"
+paths:
+  /customers:
+    get:
+      consumes:
+      - application/json
+      description: get all customers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.ApiResponse'
+            type: array
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Lista clientes
+      tags:
+      - customers
+  /customers/:
+    post:
+      consumes:
+      - application/json
+      description: 'Add a client :'
+      parameters:
+      - description: Create customer
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateCustomerRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.ApiResponse'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Add a client
+      tags:
+      - customers
+    put:
+      consumes:
+      - application/json
+      description: Update a customer
+      parameters:
+      - description: Update customer
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateCustomerRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ApiResponse'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Update a customer
+      tags:
+      - customers
+  /customers/{ID}:
+    delete:
+      consumes:
+      - application/json
+      description: Elimina un cliente por su id
+      parameters:
+      - description: ID del cliente
+        in: path
+        name: ID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/dto.ApiResponse'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Elimina un cliente
+      tags:
+      - customers
+    get:
+      consumes:
+      - application/json
+      description: Lista un cliente por su id
+      parameters:
+      - description: ID del cliente
+        in: path
+        name: ID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ApiResponse'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Obtiene un cliente
+      tags:
+      - customers
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"
