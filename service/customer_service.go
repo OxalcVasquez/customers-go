@@ -84,7 +84,7 @@ func (customerService CustomerServiceImpl) CreateCustomer(c *gin.Context) {
 func (customerService CustomerServiceImpl) UpdateCustomer(c *gin.Context) {
 	defer pkg.PanicHandler(c)
 
-	log.Info("Start to execute pdate customer")
+	log.Info("Start to execute update customer")
 
 	customerID, _ := strconv.Atoi(c.Param("customerID"))
 

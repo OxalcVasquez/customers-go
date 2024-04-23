@@ -23,7 +23,7 @@ type CustomerRepositoryImpl struct {
 
 // Inicializacion
 func CustomerRepositoryInit(db *gorm.DB) *CustomerRepositoryImpl {
-	db.AutoMigrate(&dao.Customer{})
+	// db.AutoMigrate(&dao.Customer{})
 	return &CustomerRepositoryImpl{
 		db: db,
 	}
@@ -65,7 +65,7 @@ func (customerRepo CustomerRepositoryImpl) Save(customer *dao.Customer) (dao.Cus
 	return *customer, nil
 }
 
-func (customerRepo CustomerRepositoryImpl) Update(customer *dao.Customer) (dao.Customer, error) {
+func (customerRepo CustomerRepositoryImpl) Update(id int, customer *dao.Customer) (dao.Customer, error) {
 	err := customerRepo.db.Preload("Type").First(&customer).Error
 
 	if err != nil {
@@ -80,7 +80,7 @@ func (customerRepo CustomerRepositoryImpl) Update(customer *dao.Customer) (dao.C
 	return *customer, nil
 }
 
-func (customerRepo CustomerRepositoryImpl) DeleteCustomerById(id int) error {
+func (customerRepo CustomerRepositoryImpl) Delete(id int) error {
 	err := customerRepo.db.Delete(&dao.Customer{}, id).Error
 	if err != nil {
 		log.Error("Error deleting customer. Error: ", err)
