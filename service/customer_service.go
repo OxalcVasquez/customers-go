@@ -21,12 +21,12 @@ type CustomerService interface {
 }
 
 type CustomerServiceImpl struct {
-	customerRepository repository.CustomerRepository
+	repo repository.CustomerRepository
 }
 
-func CustomerServiceInit(customerRepository repository.CustomerRepository) *CustomerServiceImpl {
+func CustomerServiceInit(repo repository.CustomerRepository) *CustomerServiceImpl {
 	return &CustomerServiceImpl{
-		customerRepository: customerRepository,
+		repo: repo,
 	}
 }
 
@@ -35,7 +35,7 @@ func (customerService CustomerServiceImpl) GetAllCustomer(c *gin.Context) {
 
 	log.Info("Start to get all customers")
 
-	data, err := customerService.customerRepository.FindAllCustomer()
+	data, err := customerService.repo.FindAllCustomer()
 
 	if err != nil {
 		log.Error("Error ocurred find all customers. Error", err)
@@ -51,7 +51,7 @@ func (customerService CustomerServiceImpl) GetCustomerById(c *gin.Context) {
 	log.Info("Start to get customer by id")
 	customerID, _ := strconv.Atoi(c.Param("customerID"))
 
-	data, err := customerService.customerRepository.FindCustomerById(customerID)
+	data, err := customerService.repo.FindCustomerById(customerID)
 
 	if err != nil {
 		log.Error("Error ocurred find customer id. Error", err)
@@ -72,7 +72,7 @@ func (customerService CustomerServiceImpl) CreateCustomer(c *gin.Context) {
 		pkg.PanicException(constant.InvalidRequest)
 	}
 
-	data, err := customerService.customerRepository.Save(&request)
+	data, err := customerService.repo.Save(&request)
 	if err != nil {
 		log.Error("Error saving customer to database. Error", err)
 		pkg.PanicException(constant.UknownError)
@@ -94,7 +94,7 @@ func (customerService CustomerServiceImpl) UpdateCustomer(c *gin.Context) {
 		pkg.PanicException(constant.InvalidRequest)
 	}
 
-	data, err := customerService.customerRepository.FindCustomerById(customerID)
+	data, err := customerService.repo.FindCustomerById(customerID)
 	if err != nil {
 		log.Error("Error when get customer from database. Error", err)
 		pkg.PanicException(constant.UknownError)
@@ -107,7 +107,7 @@ func (customerService CustomerServiceImpl) UpdateCustomer(c *gin.Context) {
 	data.Name = request.Name
 	data.Status = request.Status
 	data.TypeId = request.TypeId
-	customerService.customerRepository.Save(&data)
+	customerService.repo.Update(customerID, &data)
 
 	if err != nil {
 		log.Error("Error updating customer. Error", err)
@@ -124,7 +124,7 @@ func (customerService CustomerServiceImpl) DeleteCustomer(c *gin.Context) {
 
 	customerID, _ := strconv.Atoi(c.Param("customerID"))
 
-	err := customerService.customerRepository.Delete(customerID)
+	err := customerService.repo.Delete(customerID)
 	if err != nil {
 		log.Error("Error when delete customer from database. Error", err)
 		pkg.PanicException(constant.UknownError)
