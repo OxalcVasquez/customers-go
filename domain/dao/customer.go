@@ -1,9 +1,8 @@
 package dao
 
-import "gorm.io/gorm"
-
 type Customer struct {
-	gorm.Model
+	BaseModel
+	ID       int    `gorm:"column:id; primary_key; not null" json:"id"`
 	Name     string `gorm:"column:name; not null" json:"name"`
 	LastName string `gorm:"column:last_name; not null" json:"last_name"`
 	Email    string `gorm:"column:email; not null" json:"email"`

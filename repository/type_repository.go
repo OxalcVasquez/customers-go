@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type RoleRepository interface {
+type TypeRepository interface {
 	FindAllRole()
 }
 
