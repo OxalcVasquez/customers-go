@@ -19,6 +19,7 @@ func InitLog() {
 	})
 }
 
+// Setup del nivel de logging
 func getLoggerLevel(value string) log.Level {
 	switch value {
 	case "DEBUG":
