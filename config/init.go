@@ -9,8 +9,8 @@ import (
 type Initialization struct {
 	customerRepo       repository.CustomerRepository
 	customerService    service.CustomerService
-	customerController controller.CustomerController
-	typeRepo           repository.TypeRepository
+	CustomerController controller.CustomerController
+	TypeRepo           repository.TypeRepository
 }
 
 func NewInitialization(customerRepo repository.CustomerRepository,
@@ -20,7 +20,7 @@ func NewInitialization(customerRepo repository.CustomerRepository,
 	return &Initialization{
 		customerRepo:       customerRepo,
 		customerService:    customerService,
-		customerController: customerController,
-		typeRepo:           typeRepo,
+		CustomerController: customerController,
+		TypeRepo:           typeRepo,
 	}
 }
