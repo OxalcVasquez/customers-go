@@ -7,7 +7,7 @@ type Customer struct {
 	LastName string `gorm:"column:last_name; not null" json:"last_name"`
 	Email    string `gorm:"column:email; not null" json:"email"`
 	Phone    string `gorm:"column:phone" json:"phone"`
-	Status   int    `gorm:"colum:status" json:"status"`
+	Status   bool   `gorm:"colum:status" json:"status"`
 	TypeID   int    `gorm:"colum:type_id; not null" json:"type_id"`
 	Type     Type   `gorm:"foreignKey:TypeID; references:ID" json:"type"`
 }
