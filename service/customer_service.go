@@ -107,7 +107,7 @@ func (customerService CustomerServiceImpl) UpdateCustomer(c *gin.Context) {
 	data.Phone = request.Phone
 	data.Name = request.Name
 	data.Status = request.Status
-	data.Type.ID = request.TypeID
+	data.TypeID = request.TypeID
 	customerService.repo.Update(&data)
 
 	if err != nil {

@@ -78,7 +78,12 @@ func (customerRepo CustomerRepositoryImpl) Update(customer *dao.Customer) (dao.C
 		log.Error("Error updating customer. Error: ", err)
 		return dao.Customer{}, err
 	}
-	return *customer, nil
+	if err := customerRepo.db.Model(&existingCustomer).UpdateColumn("status", customer.Status).Error; err != nil {
+		log.Error("Error updating customer. Error: ", err)
+		return dao.Customer{}, err
+	}
+
+	return existingCustomer, nil
 }
 
 func (customerRepo CustomerRepositoryImpl) Delete(id int) error {

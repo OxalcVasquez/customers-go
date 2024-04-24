@@ -6,5 +6,5 @@ type CreateCustomerRequest struct {
 	Email    string `json:"email"`
 	Phone    string `json:"phone"`
 	Status   bool   `json:"status"`
-	TypeId   int    `json:"type_id"`
+	TypeID   int    `json:"type_id"`
 }

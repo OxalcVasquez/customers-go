@@ -20,13 +20,10 @@ func Init() *Initialization {
 	customerRepositoryImpl := repository.CustomerRepositoryInit(gormDB)
 	customerServiceImpl := service.CustomerServiceInit(customerRepositoryImpl)
 	customerControlerImpl := controller.CustomerControllerInit(customerServiceImpl)
-
 	typeRepositoryImpl := repository.TypeRepositoryInit(gormDB)
 	typeServiceImpl := service.TypeServiceInit(typeRepositoryImpl)
-	typeControllerImpl := controller.TypeControllerInit(typeServiceImpl)
-
-
-	initialization := NewInitialization(customerRepositoryImpl, customerServiceImpl, customerControlerImpl, typeRepositoryImpl, typeServiceImpl, typeControllerImpl)
+	typeControlerImpl := controller.TypeControllerInit(typeServiceImpl)
+	initialization := NewInitialization(customerRepositoryImpl, customerServiceImpl, customerControlerImpl, typeRepositoryImpl, typeServiceImpl, typeControlerImpl)
 	return initialization
 }
 
@@ -42,7 +39,6 @@ var customerCtrlSet = wire.NewSet(controller.CustomerControllerInit, wire.Bind(n
 
 var typeRepoSet = wire.NewSet(repository.TypeRepositoryInit, wire.Bind(new(repository.TypeRepository), new(*repository.TypeRepositoryImpl)))
 
-var typeServiceSet = wire.NewSet(service.TypeServiceInit, wire.Bind(new(repository.TypeRepository), new(*service.TypeServiceImpl)))
+var typeServiceSet = wire.NewSet(service.TypeServiceInit, wire.Bind(new(service.TypeService), new(*service.TypeServiceImpl)))
 
-
-var typeControllerSet = wire.NewSet(controller.TypeControllerInit, wire.Bind(new(repository.TypeRepository), new(*controller.TypeControlerImpl)))
+var typeControllerSet = wire.NewSet(controller.TypeControllerInit, wire.Bind(new(controller.TypeController), new(*controller.TypeControlerImpl)))
