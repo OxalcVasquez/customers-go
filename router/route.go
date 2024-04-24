@@ -31,6 +31,10 @@ func Init(init *config.Initialization) *gin.Engine {
 		customer.PUT("", init.CustomerController.UpdateCustomer)
 		customer.DELETE("/:customerID", init.CustomerController.DeleteCustomer)
 	}
+	{
+		typeCustomer := api.Group("/types")
+		typeCustomer.GET("", init.TypeController.GetAllTypes)
+	}
 
 	return router
 }

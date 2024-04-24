@@ -10,17 +10,21 @@ type Initialization struct {
 	customerRepo       repository.CustomerRepository
 	customerService    service.CustomerService
 	CustomerController controller.CustomerController
-	TypeRepo           repository.TypeRepository
+	typeRepo           repository.TypeRepository
+	typeService        service.TypeService
+	TypeController     controller.TypeController
 }
 
 func NewInitialization(customerRepo repository.CustomerRepository,
 	customerService service.CustomerService,
 	customerController controller.CustomerController,
-	typeRepo repository.TypeRepository) *Initialization {
+	typeRepo repository.TypeRepository, typeService service.TypeService, typeController controller.TypeController) *Initialization {
 	return &Initialization{
 		customerRepo:       customerRepo,
 		customerService:    customerService,
 		CustomerController: customerController,
-		TypeRepo:           typeRepo,
+		typeRepo:           typeRepo,
+		typeService:        typeService,
+		TypeController:     typeController,
 	}
 }
