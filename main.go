@@ -26,7 +26,7 @@ func init() {
 // @license.name  Apache 2.0
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host      https://customers-go.onrender.com/
+// @host      https://customers-go.onrender.com
 // @BasePath  /api/
 
 // @securityDefinitions.basic  BasicAuth
