@@ -23,7 +23,7 @@ type CustomerRepositoryImpl struct {
 
 // Inicializacion
 func CustomerRepositoryInit(db *gorm.DB) *CustomerRepositoryImpl {
-	// db.AutoMigrate(&dao.Customer{})
+	db.AutoMigrate(&dao.Customer{})
 	return &CustomerRepositoryImpl{
 		db: db,
 	}
